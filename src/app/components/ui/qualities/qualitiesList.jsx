@@ -1,14 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Quality from "./quality";
+import { QualitiesProvider } from "../../../../hooks/useQualities";
 
-const QualitiesList = ({ qualities }) => {
+const QualitiesList = ({ id }) => {
+    const qualities = id;
     return (
-        <>
-            {qualities.map((qual) => (
-                <Quality key={qual._id} {...qual} />
-            ))}
-        </>
+          <>
+              <QualitiesProvider>
+                  {qualities.map((qual) => (
+                        <Quality key={qual} id={qual} />
+                  ))}
+              </QualitiesProvider>
+          </>
     );
 };
 
