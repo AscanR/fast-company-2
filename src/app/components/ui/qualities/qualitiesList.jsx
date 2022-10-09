@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Quality from "./quality";
-import { QualitiesProvider } from "../../../../hooks/useQualities";
+import { useQualities } from "../../../../hooks/useQualities";
 
 const QualitiesList = ({ id }) => {
     const qualities = id;
-    return (
-          <>
-              <QualitiesProvider>
+    const { isLoading } = useQualities();
+    if (!isLoading) {
+        return (
+              <>
                   {qualities.map((qual) => (
-                        <Quality key={qual} id={qual} />
+                        <Quality key={qual} id={qual}/>
                   ))}
-              </QualitiesProvider>
-          </>
-    );
+              </>
+        );
+    } else return "Loading ...";
 };
 
 QualitiesList.propTypes = {
-    qualities: PropTypes.array
+    id: PropTypes.array
 };
 
 export default QualitiesList;
