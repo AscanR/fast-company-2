@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import userService from "../services/user.service";
+import userService from "../../services/user.service";
 import { toast } from "react-toastify";
-import { setTokens } from "../services/localStorage.service";
+import { setTokens } from "../../services/localStorage.service";
 
 const httpAuth = axios.create();
 const AuthContext = React.createContext();
@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
             const errorObject = message;
             throw errorObject;
         }
-    }
+    };
 
     async function createUser(data) {
         try {

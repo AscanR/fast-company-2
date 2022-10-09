@@ -5,9 +5,9 @@ import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
 import { ToastContainer } from "react-toastify";
-import { ProfessionProvider } from "../hooks/useProfession";
-import { QualitiesProvider } from "../hooks/useQualities";
-import AuthProvider from "../hooks/useAuth";
+import { ProfessionProvider } from "./hooks/useProfession";
+import { QualitiesProvider } from "./hooks/useQualities";
+import AuthProvider from "./hooks/useAuth";
 
 function App() {
     return (

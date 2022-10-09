@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import qualityService from "../services/quality.service";
+import qualityService from "../../services/quality.service";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 

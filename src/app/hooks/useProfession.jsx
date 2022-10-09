@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import professionService from "../services/profession.service";
+import professionService from "../../services/profession.service";
 import { toast } from "react-toastify";
 
 const ProfessionContext = React.createContext();

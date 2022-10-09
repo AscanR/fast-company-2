@@ -13,7 +13,6 @@ const Login = () => {
               prevState === "register" ? "login" : "register"
         );
     };
-
     return (
           <div className="container mt-5">
               <div className="row">

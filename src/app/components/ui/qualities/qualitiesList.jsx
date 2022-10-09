@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Quality from "./quality";
-import { useQualities } from "../../../../hooks/useQualities";
+import { useQualities } from "../../../hooks/useQualities";
 
 const QualitiesList = ({ id }) => {
     const qualities = id;
