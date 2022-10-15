@@ -9,7 +9,7 @@ const QualitiesList = ({ id }) => {
     if (!isLoading) {
         return (
               <>
-                  {qualities.map((qual) => (
+                  {qualities && qualities.map((qual) => (
                         <Quality key={qual} id={qual}/>
                   ))}
               </>

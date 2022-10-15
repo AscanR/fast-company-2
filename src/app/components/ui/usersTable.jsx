@@ -8,24 +8,23 @@ import { Link } from "react-router-dom";
 import Profession from "./profession";
 
 const UserTable = ({
-    users,
-    onSort,
-    selectedSort,
-    onToggleBookMark,
-    onDelete,
-    ...rest
-}) => {
+                       users,
+                       onSort,
+                       selectedSort,
+                       onToggleBookMark,
+                       ...rest
+                   }) => {
     const columns = {
         name: {
             path: "name",
             name: "Имя",
             component: (user) => (
-                <Link to={`/users/${user._id}`}>{user.name}</Link>
+                  <Link to={`/users/${user._id}`}>{user.name}</Link>
             )
         },
         qualities: {
             name: "Качества",
-            component: user => <Qualities id={user.qualities} />
+            component: user => <Qualities id={user.qualities}/>
         },
         professions: { component: user => <Profession id={user.profession}/>, name: "Профессия" },
         completedMeetings: {
@@ -37,30 +36,20 @@ const UserTable = ({
             path: "bookmark",
             name: "Избранное",
             component: (user) => (
-                <BookMark
-                    status={user.bookmark}
-                    onClick={() => onToggleBookMark(user._id)}
-                />
-            )
-        },
-        delete: {
-            component: (user) => (
-                <button
-                    onClick={() => onDelete(user._id)}
-                    className="btn btn-danger"
-                >
-                    delete
-                </button>
+                  <BookMark
+                        status={user.bookmark}
+                        onClick={() => onToggleBookMark(user._id)}
+                  />
             )
         }
     };
     return (
-        <Table
-            onSort={onSort}
-            selectedSort={selectedSort}
-            columns={columns}
-            data={users}
-        />
+          <Table
+                onSort={onSort}
+                selectedSort={selectedSort}
+                columns={columns}
+                data={users}
+          />
     );
 };
 
@@ -68,8 +57,7 @@ UserTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
-    onToggleBookMark: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onToggleBookMark: PropTypes.func.isRequired
 };
 
 export default UserTable;
