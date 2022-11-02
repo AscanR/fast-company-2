@@ -6,9 +6,10 @@ import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
 import BackHistoryButton from "../../common/backButton";
 import { useAuth } from "../../../hooks/useAuth";
-import { useProfessions } from "../../../hooks/useProfession";
-import { useQualities } from "../../../hooks/useQualities";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getQualities, getQualitiesLoadingStatus } from "../../../store/qualities";
+import { getProfessions, getProfessionsLoadingStatus } from "../../../store/professions";
 
 const EditUserPage = () => {
     const history = useHistory();
@@ -16,13 +17,15 @@ const EditUserPage = () => {
     const [data, setData] = useState({});
     const { currentUser, updateUser } = useAuth();
     const [errors, setErrors] = useState({});
-    const { profession, isLoading: professionLoading } = useProfessions();
-    const profList = profession.map((item) => ({
+    const profession = useSelector(getProfessions());
+    const professionLoading = useSelector(getProfessionsLoadingStatus());
+    const qualities = useSelector(getQualities());
+    const qualitiesLoading = useSelector(getQualitiesLoadingStatus());
+    const qualitiesList = qualities.map((item) => ({
         label: item.name,
         value: item._id
     }));
-    const { qualities, isLoading: qualitiesLoading } = useQualities();
-    const qualitiesList = qualities.map((item) => ({
+    const profList = profession.map((item) => ({
         label: item.name,
         value: item._id
     }));
@@ -63,7 +66,7 @@ const EditUserPage = () => {
             ...data,
             qualities: data.qualities.map((qual) => qual.value)
         });
-        history.push("/");
+        history.push(`/users/${currentUser._id}`);
     };
 
     const validatorConfig = {
@@ -101,7 +104,7 @@ const EditUserPage = () => {
     }, [data]);
     return (
           <div className="container mt-5">
-              <BackHistoryButton />
+              <BackHistoryButton/>
               <div className="row">
                   <div className="col-md-6 offset-md-3 shadow p-4">
                       {!isLoading && Object.keys(profList).length > 0 ? (
