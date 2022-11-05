@@ -61,15 +61,9 @@ const EditUserPage = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        // dispatch(updateUser({
-        //           ...data,
-        //           qualities: data.qualities.map((qual) => qual.value)
-        //       })
-        // );
-        dispatch(
-              updateUser({
+        dispatch(updateUser({
                   ...data,
-                  qualities: data.qualities.map((q) => q.value)
+                  qualities: data.qualities.map((qual) => qual.value)
               })
         );
     };
