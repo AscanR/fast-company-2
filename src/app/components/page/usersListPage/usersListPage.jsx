@@ -6,21 +6,20 @@ import GroupList from "../../common/groupList";
 import SearchStatus from "../../ui/searchStatus";
 import UserTable from "../../ui/usersTable";
 import _ from "lodash";
-import { useUser } from "../../../hooks/useUsers";
-import { useAuth } from "../../../hooks/useAuth";
 import { useSelector } from "react-redux";
 import { getProfessions, getProfessionsLoadingStatus } from "../../../store/professions";
+import { getCurrentUserId, getUsersList } from "../../../store/users";
 
 const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const { currentUser } = useAuth();
+    const currentUserId = useSelector(getCurrentUserId());
     const profession = useSelector(getProfessions());
     const professionLoading = useSelector(getProfessionsLoadingStatus());
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 8;
-    const { users } = useUser();
+    const users = useSelector(getUsersList());
 
     const handleDelete = (userId) => {
         // setUsers(users.filter((user) => user._id !== userId));
@@ -73,7 +72,7 @@ const UsersListPage = () => {
                                     JSON.stringify(selectedProf)
                         )
                         : data;
-            return filteredUsers.filter(user => user._id !== currentUser._id);
+            return filteredUsers.filter(user => user._id !== currentUserId);
         }
 
         const filteredUsers = filterUsers(users);
@@ -89,7 +88,7 @@ const UsersListPage = () => {
         };
 
         return (
-              <div className="d-flex">
+              <div className="d-flex mx-5">
                   {profession && !professionLoading && (
                         <div className="d-flex flex-column flex-shrink-0 p-3">
                             <GroupList
