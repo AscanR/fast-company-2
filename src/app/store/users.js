@@ -4,6 +4,7 @@ import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import { randomInt } from "../utils/randomInt";
 import history from "../utils/history";
+import { generateAuthErrors } from "../utils/generateAuthErrors";
 
 const initialState = localStorageService.getAccessToken()
       ? {
@@ -66,6 +67,9 @@ const usersSlice = createSlice({
         },
         userUpdatedFailed: (state, action) => {
             state.error = action.payload;
+        },
+        authRequested: (state) => {
+            state.error = null;
         }
     }
 });
@@ -97,7 +101,13 @@ export const login = ({ payload, redirect }) => async (dispatch) => {
         localStorageService.setTokens(data);
         history.push(redirect);
     } catch (e) {
-        dispatch(authRequestFailed(e.message));
+        const { code, message } = e.response.data.error;
+        if (code === 400) {
+            const errorMessage = generateAuthErrors(message);
+            dispatch(authRequestFailed(errorMessage));
+        } else {
+            dispatch(authRequestFailed(e.message));
+        }
     }
 };
 
@@ -141,7 +151,7 @@ function createUser(payload) {
             dispatch(createUserFailed(e.message));
         }
     };
-};
+}
 
 export const updateUser = (payload) => async (dispatch) => {
     dispatch(userUpdateRequested());
@@ -187,5 +197,7 @@ export const getDataLoadingStatus = () => state => state.users.dataLoaded;
 export const getCurrentUserId = () => state => state.users.auth.userId;
 
 export const getUsersLoadingStatus = () => state => state.users.isLoading;
+
+export const getAuthErrors = () => state => state.users.error;
 
 export default usersReducer;
