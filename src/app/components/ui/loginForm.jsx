@@ -16,7 +16,6 @@ const LoginForm = () => {
     const [errors, setErrors] = useState({});
     const history = useHistory();
     const dispatch = useDispatch();
-    // const { signInUser } = useAuth();
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
