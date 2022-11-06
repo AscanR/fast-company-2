@@ -29,8 +29,8 @@ const Comments = () => {
     };
 
     async function handleRemoveComment(userId) {
-        dispatch(removeComment(userId));
-        dispatch(loadCommentsList(userId));
+       await dispatch(removeComment(userId));
+       location.reload();
     };
     const sortedComments = orderBy(comments, ["created_at"], ["desc"]);
     return (
